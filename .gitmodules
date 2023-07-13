@@ -1,0 +1,6 @@
+[submodule "typst-slides"]
+	path = typst-slides
+	url = https://github.com/andreasKroepelin/typst-slides.git
+[submodule "typst-slides-unipd"]
+	path = typst-slides-unipd
+	url = https://github.com/SkiFire13/typst-slides-unipd.git
