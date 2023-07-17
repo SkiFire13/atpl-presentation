@@ -11,6 +11,8 @@
   theme: unipd-theme(),
 )
 
+#show link: it => text(fill: unipd-red, underline(it))
+
 #slide(theme-variant: "title")
 
 #new-section("Introduction")
@@ -84,10 +86,21 @@
 
   - Proof of safety theorem in Coq
 
-  - #text(
-    fill: unipd-red,
-    underline(link("https://plv.mpi-sws.org/rustbelt/popl18/"))
-  )
+  - #link("https://plv.mpi-sws.org/rustbelt/popl18/")
+]
+
+// TODO: Other informations on RustBelt?
+
+#slide(title: "What about the implementation?")[
+  #box(inset: (x: -1%), width: 110%, ```rs
+  fn bad<'t, T>(x: &'t T) -> &'static T {
+    fn f<'a, 'b, T>(_: &'a &'b (), v: &'b T) -> &'a T { v }
+    let g: for<'a, 'b, 'c> fn(&'a &'b (), &'c T) -> &'a T = f;
+    g(&&(), x)
+  }
+  ```)
+  #v(5%)
+  #link("https://github.com/rust-lang/rust/issues/25860")
 ]
 
 #new-section("Other features")
@@ -132,7 +145,9 @@
   - Some code have to prove WF and other can assume it
 ]
 
-#slide(title: "Unsoundness in the implementation")[
+#new-section("Safety")
+
+#slide[
   #show: it => box(inset: (x: -5%), width: 110%, it)
   ```rs
   fn bad<'t, T>(x: &'t T) -> &'static T {
