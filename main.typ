@@ -80,9 +80,9 @@
 #new-section("Safety")
 
 #slide(title: "But is it actually safe?")[
-  - *RustBelt*
+  - *RustBelt* and $lambda_"Rust"$
 
-  - $lambda_"Rust"$ models a core subset of Rust
+  - Models a core subset of Rust
 
   - Proof of safety theorem in Coq
 
@@ -134,7 +134,9 @@
 
     - $#r("for<'a> T<'a>") #s <: #s #r("T<'b>")$
 
-    - $#r("T") #s <: #s #r("U") #s -> #s #r("for<'a> T") #s <: #s #r("for<'a> U")$
+    - Other rules about subtyping are not well documented
+
+      - but for example $#r("for<'a, 'b> fn(&'a T, &'b T)")$ \ $<: #s #r("for<'a> fn(&'a T, &'a T)")$ and viceversa
 ]
 
 #slide(title: "Implied bounds")[
@@ -142,12 +144,15 @@
 
   - ```rs &'lft T``` is WF if ```rs T: 'lft```
 
+    - ```rs &'long &'short T``` is not WF
+
   - Some code have to prove WF and other can assume it
 ]
 
 #new-section("Safety")
 
 #slide[
+  // TODO: better comments
   #show: it => box(inset: (x: -5%), width: 110%, it)
   ```rs
   fn bad<'t, T>(x: &'t T) -> &'static T {
@@ -157,7 +162,7 @@
     let g: for<'a, 'b> fn(&'a &'b (), &'b T) -> &'a T = f;
     // subtly invalid
     let h: for<'a, 'b, 'c> fn(&'a &'b (), &'c T) -> &'a T = g;
-    // cast to supertype
+    // simple cast to supertype
     let j: fn(&'static &'static (), &'t T) -> &'static T = h;
 
     j(&&(), x)
