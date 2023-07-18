@@ -77,10 +77,10 @@
 
 #new-section("Safety")
 
-#slide(title: "RustBelt")[
-  - Created $lambda_"Rust"$
+#slide(title: "But is it actually safe?")[
+  - *RustBelt*
 
-  - Core subset of Rust
+  - $lambda_"Rust"$ models a core subset of Rust
 
   - Proof of safety theorem in Coq
 
@@ -92,7 +92,7 @@
 
 #new-section("Other features")
 
-#slide(title: "Lifetime generics and higher ranked types")[
+#slide(title: "Lifetime generics")[
   - What is the lifetime `'lft` here?
     #only(1, ```rs
     fn id(r: &'lft i32) -> &'lft i32 { r }
